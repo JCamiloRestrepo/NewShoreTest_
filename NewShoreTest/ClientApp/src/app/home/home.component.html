@@ -1,0 +1,78 @@
+<section class="slider">
+  <ul class="slides">
+    <li>
+      <img src="../../../assets/images/background1.jpg" class="image"> <!-- random image -->
+      <div class="caption center-align">
+        <h1 style="color:black">Your last-minute adventure awaits...</h1>
+      </div>
+    </li>
+    <li>
+      <img src="../../../assets/images/background2.jpg" class="image"> <!-- random image -->
+      <div class="caption left-align">
+        <h2>Where do you wish your next getaway?</h2>
+      </div>
+    </li>
+    <li>
+      <img src="../../../assets/images/background3.jpg" class="image"> <!-- random image -->
+      <div class="caption right-align">
+        <h2 style="color:black"> Change your trip not your desire to fly</h2>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<div class="row">
+  <form class="col s12">
+    <div class="row">
+      <div class="input-field col s3">
+        <ng-multiselect-dropdown [placeholder]="'Origin'" [data]="lstcities"
+                                 [(ngModel)]="origin" [settings]="citiesSettings" name="origin">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="input-field col s3">
+        <ng-multiselect-dropdown [placeholder]="'Destination'" [data]="lstcities"
+                                 [(ngModel)]="destination" [settings]="citiesSettings" name="destination">
+        </ng-multiselect-dropdown>
+      </div>
+      <div class="input-field col s3">
+        <input [(ngModel)]="flightDate" name="from" id="From" type="date" [min]="minDate|date:'yyyy-MM-dd'">
+      </div>
+    </div>
+  </form>
+  <button *ngIf="!flag" (click)="GetFlights()" class="btn wav es-effect waves-light">
+    Search
+    <i class="material-icons">search</i>
+  </button>
+  <button *ngIf="flag" (click)="GetFlights()" class="btn wav es-effect waves-green">
+    Search
+    <i class="material-icons">search</i>
+  </button>
+</div>
+
+<table *ngIf="flag" class="highlight responsive-table centered">
+  <thead>
+    <tr>
+      <th>Origin</th>
+      <th>Destination</th>
+      <th>From</th>
+
+      <th>Flight number</th>
+      <th>Price</th>
+      <th>Currency</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let c of lstFlight">
+      <td>{{ c.departureStation }}</td>
+      <td>{{ c.arrivalStation }}</td>
+      <td>{{ c.departureDate }}</td>
+
+      <td>{{ c.flightNumber }}</td>
+      <td>{{ c.price }}</td>
+      <td>{{ c.currency }}</td>
+      <td><button class="btn btn-primary" (click)="SaveFlight(c)">Continue</button></td>
+    </tr>
+  </tbody>
+</table>
